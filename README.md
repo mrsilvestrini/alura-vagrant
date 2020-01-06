@@ -39,7 +39,7 @@
 
     - Install VirtualBox 6.0 Extension Pack
       cd Downloads/
-      wget https://download.virtualbox.org/virtualbox/6.0.0/Oracle_VM_VirtualBox_Extension_Pack-6.0.0.vbox-extpack
+      wget <https://download.virtualbox.org/virtualbox/6.0.0/Oracle_VM_VirtualBox_Extension_Pack-6.0.0.vbox-extpack>
 
     - Access VirtualBox on CentOS 8 / RHEL 8
 
@@ -61,7 +61,7 @@
       sudo yum localinstall vagrant_2.2.3_x86_64.rpm -y
       vagrant ––version
 
-- Init vargrant Project
+- Init vargrant Project box precise
   cd ~
   mkdir vagrabt
   cd vagrabt
@@ -69,3 +69,44 @@
   cd dev
   vagrant init hashicorp/precise64
   vagrant up
+
+- Vagrant ssh
+
+  - Connect host
+    vagrant ssh or
+    ssh -p 2222 vagrant@127.0.0.1 / pass:vagrant
+  - View configs
+    vagrant ssh-config
+
+- Power off VM
+  vagrant halt
+
+- Init vargrant Project box Ubuntu bionic and nginx
+  vim Vagrantfile
+  add content in Vagrantfile:
+
+  Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+  end
+
+  vagrant up
+  vagrant status
+  vagrant ssh
+  sudo apt-get update -y
+  sudo apt-get install -y nginx
+  curl http://localhost
+
+- Configure Forwarded Ports
+  vim Vagrantfile
+  add line:
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  vagrant halt
+  vagrant up
+  vagrant ssh
+  curl http://localhost:8089
+
+- Configure Static Ip
+  vim Vagrantfile
+  add line:
+  config.vm.network "private_network", ip: "192.168.50.4"
+  vagrant reload or vagrant halt, vagrant up
