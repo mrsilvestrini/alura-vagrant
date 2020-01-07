@@ -127,3 +127,9 @@
 
 - Delete VM
   vagrant destroy -f
+
+- SSH
+  - list configs ssh
+    vagrant ssh-config
+  - connect with private key
+    ssh -i /home/marcos.silvestrini/vagrant/dev/bionic/.vagrant/machines/default/virtualbox/private_key vagrant@192.168.0.132
