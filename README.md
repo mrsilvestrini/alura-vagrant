@@ -105,8 +105,25 @@
   vagrant ssh
   curl http://localhost:8089
 
-- Configure Static Ip
+- Configure Private Network
   vim Vagrantfile
-  add line:
-  config.vm.network "private_network", ip: "192.168.50.4"
+
+  - Static,add line:
+    config.vm.network "private_network", ip: "192.168.0.21"
+  - DHCP,add line:
+    config.vm.network "private_network", type: "dhcp"
+
   vagrant reload or vagrant halt, vagrant up
+
+- Configure Public Network
+  vim Vagrantfile
+
+  - Static,add line:
+    config.vm.network "public_network" , ip: "192.168.0.21"
+  - DHCP,add line:
+    config.vm.network "public_network"
+
+  vagrant reload or vagrant halt, vagrant up
+
+- Delete VM
+  vagrant destroy -f
