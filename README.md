@@ -129,7 +129,26 @@
   vagrant destroy -f
 
 - SSH
+
   - list configs ssh
     vagrant ssh-config
   - connect with private key
     ssh -i /home/marcos.silvestrini/vagrant/dev/bionic/.vagrant/machines/default/virtualbox/private_key vagrant@192.168.0.132
+  - connect with public key
+    ssh -i id_rsa vagrant@192.168.0.132
+
+- PROVISIONING
+
+  - Shell
+    - Hello World
+      config.vm.provision "shell", inline: "echo Hello, World"
+      config.vm.provision "shell", inline: "echo Hello, World >>hello.txt"
+    - Set SSH
+      config.vm.provision "shell",
+      inline: "cat /configs/id_rsa.pub >> .ssh/authorized_keys"
+
+- MOUNTS \ SHARED FOLDERS
+  - Add mounts
+    config.vm.synced_folder "src/", "/srv/website"
+    config.vm.synced_folder "./configs/", "/configs"
+  - Disable Mounts
