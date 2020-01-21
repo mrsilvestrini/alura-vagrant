@@ -140,6 +140,7 @@
 - PROVISIONING
 
   - Shell
+
     - Hello World
       config.vm.provision "shell", inline: "echo Hello, World"
       config.vm.provision "shell", inline: "echo Hello, World >>hello.txt"
@@ -147,8 +148,14 @@
       config.vm.provision "shell",
       inline: "cat /configs/id_rsa.pub >> .ssh/authorized_keys"
 
+  - Execute Providers(Case modify Vagrantfile with new code)
+    vagrant provision
+
 - MOUNTS \ SHARED FOLDERS
+
   - Add mounts
     config.vm.synced_folder "src/", "/srv/website"
     config.vm.synced_folder "./configs/", "/configs"
   - Disable Mounts
+
+- INSTALL MYSQL
