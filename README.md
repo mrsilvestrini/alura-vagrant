@@ -70,6 +70,9 @@
   vagrant init hashicorp/precise64
   vagrant up
 
+- Validate Vagrantfile
+  vagrant validate
+
 - Vagrant ssh
 
   - Connect host

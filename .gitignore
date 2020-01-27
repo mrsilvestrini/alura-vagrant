@@ -1,1 +1,4 @@
-**/*.iso
+*.iso
+*.log
+*id_rsa*
+*id_bionic.pub*
