@@ -30,7 +30,7 @@
         dnf install VirtualBox-6.0 -y
 
       - If any local user want to attach usb device to VirtualBox VMs then he/she should be part “vboxusers ” group, use the beneath usermod command to add local user to “vboxusers” group.
-        usermod -aG vboxusers marcos.silvestrini
+        usermod -aG vboxusers user
 
       - Enable AMD-V in host or provider(vmware, for example)
 
@@ -44,7 +44,7 @@
     - Access VirtualBox on CentOS 8 / RHEL 8
 
       - Configure home with permissions
-        chown marcos.silvestrini:marcos.silvestrini /home/marcos.silvestrini
+        chown user:user /home/user
       - Configure .Xauthority
         <https://www.osradar.com/configure-x11-forwarding-in-centos-rhel-6-7-8-and-fedora-28-29/>
 
@@ -112,7 +112,7 @@
   vim Vagrantfile
 
   - Static,add line:
-    config.vm.network "private_network", ip: "192.168.0.21"
+    config.vm.network "private_network", ip: "192.168.1.21"
   - DHCP,add line:
     config.vm.network "private_network", type: "dhcp"
 
@@ -122,7 +122,7 @@
   vim Vagrantfile
 
   - Static,add line:
-    config.vm.network "public_network" , ip: "192.168.0.21"
+    config.vm.network "public_network" , ip: "192.168.1.21"
   - DHCP,add line:
     config.vm.network "public_network"
 
@@ -136,9 +136,9 @@
   - list configs ssh
     vagrant ssh-config
   - connect with private key
-    ssh -i /home/marcos.silvestrini/vagrant/dev/bionic/.vagrant/machines/default/virtualbox/private_key vagrant@192.168.0.132
+    ssh -i /home/user/vagrant/dev/bionic/.vagrant/machines/default/virtualbox/private_key vagrant@192.168.1.132
   - connect with public key
-    ssh -i id_rsa vagrant@192.168.0.132
+    ssh -i id_rsa vagrant@192.168.1.132
 
 - PROVISIONING
 
