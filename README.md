@@ -1,65 +1,67 @@
 # Course Alura - Vargrant
 
+- Install Virtual Box 6  
+   <https://www.linuxtechi.com/install-virtualbox-6-centos-8-rhel-8/>
+
+  - Enable VirtualBox and EPEL Repository
+
+    - Add Repository
+      dnf config-manager --add-repo=<https://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo>
+
+    - Use below rpm command to import Oracle VirtualBox Public Key
+      rpm --import <https://www.virtualbox.org/download/oracle_vbox.asc>
+
+    - Enable EPEL repo using following dnf command
+      dnf install <https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm> -y
+
+  - Install VirtualBox Build tools and dependencies
+
+    - Run the following command to install all VirtualBox build tools and dependencies
+      dnf install binutils kernel-devel kernel-headers libgomp make patch gcc glibc-headers glibc-devel dkms -y
+
+  - Install VirtualBox 6.0 on CentOS 8 / RHEL 8
+
+    - If wish to list available versions of VirtualBox before installing it , then execute the following dnf command
+      dnf search virtualbox
+
+    - Let’s install latest version of VirtualBox 6.0 using following dnf command
+      dnf install VirtualBox-6.0 -y
+
+    - If any local user want to attach usb device to VirtualBox VMs then he/she should be part “vboxusers ” group, use the beneath usermod command to add local user to “vboxusers” group.
+      usermod -aG vboxusers user
+
+    - Enable AMD-V in host or provider(vmware, for example)
+
+    - Disable Hyper-V in case windows
+      Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
+
+  - Install VirtualBox 6.0 Extension Pack
+    cd Downloads/
+    wget <https://download.virtualbox.org/virtualbox/6.0.0/Oracle_VM_VirtualBox_Extension_Pack-6.0.0.vbox-extpack>
+
+  - Access VirtualBox on CentOS 8 / RHEL 8
+
+    - Configure home with permissions
+      chown user:user /home/user
+    - Configure .Xauthority
+      <https://www.osradar.com/configure-x11-forwarding-in-centos-rhel-6-7-8-and-fedora-28-29/>
+
+    init 6
+    virtualbox
+    ctr+z
+    bg virtualbox
+
 - Install Vargrant in Rhel Centos 8
 
-  - Install Virtual Box 6  
-    <https://www.linuxtechi.com/install-virtualbox-6-centos-8-rhel-8/>
+  - Download Vargrant
+    <https://releases.hashicorp.com/vagrant/2.2.3/vagrant_2.2.3_x86_64.rpm>
+    sudo wget <https://releases.hashicorp.com/vagrant/2.2.3/vagrant_2.2.3_x86_64.rpm>
+  - Install
+    sudo yum localinstall vagrant_2.2.3_x86_64.rpm -y
+    vagrant ––version
 
-    - Enable VirtualBox and EPEL Repository
-
-      - Add Repository
-        dnf config-manager --add-repo=<https://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo>
-
-      - Use below rpm command to import Oracle VirtualBox Public Key
-        rpm --import <https://www.virtualbox.org/download/oracle_vbox.asc>
-
-      - Enable EPEL repo using following dnf command
-        dnf install <https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm> -y
-
-    - Install VirtualBox Build tools and dependencies
-
-      - Run the following command to install all VirtualBox build tools and dependencies
-        dnf install binutils kernel-devel kernel-headers libgomp make patch gcc glibc-headers glibc-devel dkms -y
-
-    - Install VirtualBox 6.0 on CentOS 8 / RHEL 8
-
-      - If wish to list available versions of VirtualBox before installing it , then execute the following dnf command
-        dnf search virtualbox
-
-      - Let’s install latest version of VirtualBox 6.0 using following dnf command
-        dnf install VirtualBox-6.0 -y
-
-      - If any local user want to attach usb device to VirtualBox VMs then he/she should be part “vboxusers ” group, use the beneath usermod command to add local user to “vboxusers” group.
-        usermod -aG vboxusers user
-
-      - Enable AMD-V in host or provider(vmware, for example)
-
-      - Disable Hyper-V in case windows
-        Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
-
-    - Install VirtualBox 6.0 Extension Pack
-      cd Downloads/
-      wget <https://download.virtualbox.org/virtualbox/6.0.0/Oracle_VM_VirtualBox_Extension_Pack-6.0.0.vbox-extpack>
-
-    - Access VirtualBox on CentOS 8 / RHEL 8
-
-      - Configure home with permissions
-        chown user:user /home/user
-      - Configure .Xauthority
-        <https://www.osradar.com/configure-x11-forwarding-in-centos-rhel-6-7-8-and-fedora-28-29/>
-
-      init 6
-      virtualbox
-      ctr+z
-      bg virtualbox
-
-  - Install Vargrant
-    - Download Vargrant
-      <https://releases.hashicorp.com/vagrant/2.2.3/vagrant_2.2.3_x86_64.rpm>
-      sudo wget <https://releases.hashicorp.com/vagrant/2.2.3/vagrant_2.2.3_x86_64.rpm>
-    - Install
-      sudo yum localinstall vagrant_2.2.3_x86_64.rpm -y
-      vagrant ––version
+  - Install plugins
+    vagrant plugin install vagrant-vsphere
 
 - Init vargrant Project box precise
   cd ~
@@ -97,7 +99,7 @@
   vagrant ssh
   sudo apt-get update -y
   sudo apt-get install -y nginx
-  curl http://localhost
+  curl <http://localhost>
 
 - Configure Forwarded Ports
   vim Vagrantfile
@@ -106,7 +108,7 @@
   vagrant halt
   vagrant up
   vagrant ssh
-  curl http://localhost:8089
+  curl <http://localhost:8089>
 
 - Configure Private Network
   vim Vagrantfile
@@ -160,5 +162,3 @@
     config.vm.synced_folder "src/", "/srv/website"
     config.vm.synced_folder "./configs/", "/configs"
   - Disable Mounts
-
-- INSTALL MYSQL
