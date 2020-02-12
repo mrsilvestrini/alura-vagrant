@@ -14,30 +14,30 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"
 
   # VM MYSQL
-  config.vm.define "mysqldb" do |mysql|    
+  #config.vm.define "mysqldb" do |mysql|    
     # NETWORK CONFIGS
     #config.vm.network "private_network", ip: "192.168.51.129"
     #config.vm.network "private_network", type: "dhcp"
     #config.vm.network "public_network"
-    mysql.vm.network "public_network" ,ip: "192.168.0.132" ,bridge:"#$default_network_interface"
+    #mysql.vm.network "public_network" ,ip: "192.168.0.132" ,bridge:"#$default_network_interface"
 
     # MOUNTS
-    mysql.vm.synced_folder "./configs", "/configs"
-    mysql.vm.synced_folder ".", "/vagrant", disabled: true
+    #mysql.vm.synced_folder "./configs", "/configs"
+    #mysql.vm.synced_folder ".", "/vagrant", disabled: true
   
     # SHELL PROVISION
     # config.vm.provision "shell", inline: "echo Hello, World"
 
     # SSH
-    mysql.vm.provision "shell", 
-      inline: "cat /configs/id_rsa.pub >> .ssh/authorized_keys"  
+    #mysql.vm.provision "shell", 
+      #inline: "cat /configs/id_rsa.pub >> .ssh/authorized_keys"  
 
     # INSTALL MYSQL SERVER
-    mysql.vm.provision "shell", inline: $script_mysql 
-    mysql.vm.provision "shell",
-      inline: "cat /configs/mysqld.cnf > /etc/mysql/mysql.conf.d/mysqld.cnf" 
-    mysql.vm.provision "shell",inline: "service mysql restart"
-  end
+    #mysql.vm.provision "shell", inline: $script_mysql 
+    #mysql.vm.provision "shell",
+      #inline: "cat /configs/mysqld.cnf > /etc/mysql/mysql.conf.d/mysqld.cnf" 
+    #mysql.vm.provision "shell",inline: "service mysql restart"
+  #end
 
   # VM PHP
   config.vm.define "phpweb" do |phpweb|
@@ -71,32 +71,33 @@ Vagrant.configure("2") do |config|
    
     # SSH
     mysqlserver.vm.provision "shell",
-      inline: "cat /vagrant/configs/id_rsa.pub >> .ssh/authorized_keys"
+      inline: "cat /vagrant/configs/id_rsa.pub >> .ssh/authorized_keys"      
     
     # ANSIBLE
-#    mysqlserver.vm.provision "ansible" do |ansible|
-#      ansible.playbook = "playbook.yml"
-#    end
+    mysqlserver.vm.provision "ansible" do |ansible|
+      ansible.playbook = "configs/ansible/playbook.yml"
+    end
   
   end
 
   # VM ANSIBLE
-  config.vm.define "ansible" do |ansible|
+  #config.vm.define "ansible" do |ansible|
    
    # NETWORK CONFIGS
-    ansible.vm.network "public_network" ,ip: "192.168.0.135",bridge:"#$default_network_interface"
+    #ansible.vm.network "public_network" ,ip: "192.168.0.135",bridge:"#$default_network_interface"
 
    # SSH
-     ansible.vm.provision "shell",
-       inline: "cp /vagrant/id_rsa  /home/vagrant && \
-       chmod 600 /home/vagrant/id_rsa"
-
+     #ansible.vm.provision "shell",
+       #inline: "cp /vagrant/id_rsa  /home/vagrant && \
+       #chmod 600 /home/vagrant/id_rsa && \
+       #chown vagrant:vagrant /home/vagrant/id_rsa"
+      
    # INSTALL ANSIBLE
-   ansible.vm.provision "shell",
-     inline: "apt-get update && \     
-              apt-get install -y software-properties-common && \
-	      apt-add-repository --yes --update  ppa:ansible/ansible && \     
-	      apt-get install -y  ansible" 
-  end
+   #ansible.vm.provision "shell",
+     #inline: "apt-get update && \     
+              #apt-get install -y software-properties-common && \
+	      #apt-add-repository --yes --update  ppa:ansible/ansible && \     
+	      #apt-get install -y  ansible" 
+  #end
   
 end
