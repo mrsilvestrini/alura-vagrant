@@ -188,3 +188,15 @@
     - end
   - Name
     - v.name = "srvdb01"
+
+- LIST GLOBAL INFOS
+
+  - vagrant global-status
+  - vagrant status id
+
+- CLEAR GLOBAL INFOS(PRUNE)
+
+  - vagrant global-status --prune
+
+- LIST BOX
+  - vagrant box list
